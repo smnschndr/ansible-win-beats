@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  role_name: win-beats
+  author: Simon Schneider
+  description: Beats for Windows
+  min_ansible_version: 2.0
+  allow_duplicates: yes
+  platforms:
+    - name: Windows
+      versions:
+      - all
+  galaxy_tags:
+    - beats
+    - elastic
+    - logging
+    - monitoring

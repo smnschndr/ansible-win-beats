@@ -1,0 +1,10 @@
+---
+- name: Install beat with specific version
+  win_chocolatey:
+    name: "{{ beat }}"
+    version: '"{{ beat_version }}"'
+
+- name: Install beat with specific version
+  win_chocolatey:
+    name: "{{ beat }}"
+    version: '"{{ beat_version }}"'
