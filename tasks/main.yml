@@ -13,13 +13,13 @@
 - name: Ensure win-beat config is present
   win_copy:
     content: "{{ win_beat_config | to_nice_yaml }}"
-    dest: "%ProgramFiles%/elastic/{{ win_beat }}/{{ win_beat }}.yml"
+    dest: "%ProgramData%/Elastic/Beats/{{ win_beat }}/{{ win_beat }}.yml"
   notify: "restart {{ win_beat }}"
 
 - name: Ensure module configs are present
   win_copy:
     content: "{{ item.value | to_nice_yaml }}"
-    dest: "%ProgramFiles%/elastic/{{ win_beat }}/modules.d/{{ item.key }}.yml"
+    dest: "%ProgramData%/Elastic/Beats/{{ win_beat }}/modules.d/{{ item.key }}.yml"
   with_dict: "{{ win_beat_module_config }}"
   notify: "restart {{ win_beat }}"
 
