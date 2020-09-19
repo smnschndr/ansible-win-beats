@@ -1,10 +1,29 @@
 ---
-- name: Install beat with specific version
+- name: Install winpcap if packetbeat
   win_chocolatey:
-    name: "{{ beat }}"
-    version: '"{{ beat_version }}"'
+    name: winpcap
+    state: latest
+  when: beat == "packetbeat"
 
-- name: Install beat with specific version
+- name: Install win-beat with specific version
   win_chocolatey:
-    name: "{{ beat }}"
-    version: '"{{ beat_version }}"'
+    name: "{{ win_beat }}"
+    version: '"{{ win_beat_version }}"'
+
+- name: Ensure win-beat config is present
+  win_copy:
+    content: "{{ win_beat_config | to_nice_yaml }}"
+    dest: "%ProgramFiles%/elastic/{{ win_beat }}/{{ win_beat }}.yml"
+  notify: "restart {{ win_beat }}"
+
+- name: Ensure module configs are present
+  win_copy:
+    content: "{{ item.value | to_nice_yaml }}"
+    dest: "%ProgramFiles%/elastic/{{ win_beat }}/modules.d/{{ item.key }}.yml"
+  with_dict: "{{ win_beat_module_config }}"
+  notify: "restart {{ win_beat }}"
+
+- name: Ensure win-beat is started
+  win_service:
+    name: "{{ win_beat }}"
+    state: started

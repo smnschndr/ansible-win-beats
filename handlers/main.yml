@@ -1,1 +1,69 @@
 ---
+- name: restart winlogbeat
+  win_service:
+    name: winlogbeat
+    state: stopped
+  notify:
+    - sleep 5s
+    - start winlogbeat
+
+- name: restart metricbeat
+  win_service:
+    name: metricbeat
+    state: stopped
+  notify:
+    - sleep 5s
+    - start metricbeat
+
+- name: restart packetbeat
+  win_service:
+    name: packetbeat
+    state: stopped
+  notify:
+    - sleep 5s
+    - start packetbeat
+
+- name: restart auditbeat
+  win_service:
+    name: auditbeat
+    state: stopped
+  notify:
+    - sleep 5s
+    - start auditbeat
+
+- name: restart filebeat
+  win_service:
+    name: filebeat
+    state: stopped
+  notify:
+    - sleep 5s
+    - start filebeat
+
+- name: sleep 5s
+  pause:
+    seconds: 5
+
+- name: start winlogbeat
+  win_service:
+    name: winlogbeat
+    state: started
+
+- name: start metricbeat
+  win_service:
+    name: metricbeat
+    state: started
+
+- name: start packetbeat
+  win_service:
+    name: packetbeat
+    state: started
+
+- name: start auditbeat
+  win_service:
+    name: auditbeat
+    state: started
+
+- name: start filebeat
+  win_service:
+    name: filebeat
+    state: started
